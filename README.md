@@ -25,6 +25,10 @@ These are personal notes, and may be wrong from those who are wiser
     * app.put(path, callback), app.delete(..), app.update(..), etc.
     * https://expressjs.com/en/4x/api.html#routing-methods
   8. http.createServer(app).listen(port, callback) to finally listen
+* Express notes
+  * Express adds middleware functionality to NodeJS
+* MongoDB notes (https://docs.mongodb.com/manual/reference/):
+  * default port is 27017
 * Should probably use some view engine generator
   * I used Pug https://pugjs.org/api/getting-started.html
 
@@ -34,6 +38,10 @@ These are personal notes, and may be wrong from those who are wiser
  
 ## Other Note:
 * npm update - I did not push latest node_modules (Maybe I should?)
+* install mongodb and run it with the mongod command in the terminal
+* install node and run with node <file.js>
+  * node . (node followed by period)
+    * searches current directory for index.js to run
 
 ## Special Thanks Michael Katz for the great tutorial
 https://www.raywenderlich.com/61078/write-simple-node-jsmongodb-web-service-ios-app
