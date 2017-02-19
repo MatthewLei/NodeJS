@@ -3,6 +3,9 @@
 	"version": "0.0.1",
 	"private": true,
 	"dependencies": {
-		"express": "*"
+		"express": "*",
+		"pug": "2.0.0-beta11",
+		"mongodb": "2.2.19",
+		"body-parser": "*"
 	}
-}		
+}
