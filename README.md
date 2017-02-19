@@ -14,19 +14,19 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
 These are personal notes, and may be wrong from those who are wiser
 
 * Writing NodeJS index.js file summary:
-..1. express = require('express'),
-..2. MongoClient = require('mongodb').MongoClient,
-..3. Server = require('mongodb').Server,
-..4. var app = express();
-..5. app.set to set up host, ports, and other stuff (e.g. body-parser)
-..6. app.get(path, callback) to capture functionality for various URL paths
-....* https://expressjs.com/en/4x/api.html#app.get
-..7. implement the other HTTP methods (put, delete, post, update, etc.)
-....* app.put(path, callback), app.delete(..), app.update(..), etc.
-....* https://expressjs.com/en/4x/api.html#routing-methods
-..8. http.createServer(app).listen(port, callback) to finally listen
+  1. express = require('express'),
+  2. MongoClient = require('mongodb').MongoClient,
+  3. Server = require('mongodb').Server,
+  4. var app = express();
+  5. app.set to set up host, ports, and other stuff (e.g. body-parser)
+  6. app.get(path, callback) to capture functionality for various URL paths
+    * https://expressjs.com/en/4x/api.html#app.get
+  7. implement the other HTTP methods (put, delete, post, update, etc.)
+    * app.put(path, callback), app.delete(..), app.update(..), etc.
+    * https://expressjs.com/en/4x/api.html#routing-methods
+  8. http.createServer(app).listen(port, callback) to finally listen
 * Should probably use some view engine generator
-..* I used Pug https://pugjs.org/api/getting-started.html
+  * I used Pug https://pugjs.org/api/getting-started.html
 
 ## Current/Future learning objectives:
 * Where and how does AngularJS come into play?
