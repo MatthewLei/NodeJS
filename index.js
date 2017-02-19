@@ -26,59 +26,59 @@ var mongoPort = 27017;
 var url = 'mongodb://' + mongoHost + ':' + mongoPort + '/MyDatabase';
 var collectionDriver;
 
-var mongoClient = new MongoClient(new Server(mongoHost, mongoPort)); //B
-mongoClient.connect(url, function(err, db) { //C
+var mongoClient = new MongoClient(new Server(mongoHost, mongoPort));
+mongoClient.connect(url, function(err, db) {
   if (err) {
       console.error("Error! Exiting... Must start MongoDB first");
-      process.exit(1); //D
+      process.exit(1);
   }
-  collectionDriver = new CollectionDriver(db); //F
+  collectionDriver = new CollectionDriver(db);
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/:collection', function(req, res) { //A
-  var params = req.params; //B
+app.get('/:collection', function(req, res) {}
+  var params = req.params;
   console.log('req.params: ' + params);
-  collectionDriver.findAll(req.params.collection, function(error, objs) { //C
-    if (error) { res.send(400, error); } //D
+  collectionDriver.findAll(req.params.collection, function(error, objs) {
+    if (error) { res.send(400, error); }
     else {
-      if (req.accepts('html')) { //E
-        res.render('data',{objects: objs, collection: req.params.collection}); //F
+      if (req.accepts('html')) {
+        res.render('data',{objects: objs, collection: req.params.collection});
       } else {
-        res.set('Content-Type','application/json'); //G
-        res.send(200, objs); //H
+        res.set('Content-Type','application/json');
+        res.send(200, objs);
       }
     }
   });
 });
 
-app.get('/:collection/:entity', function(req, res) { //I
+app.get('/:collection/:entity', function(req, res) {
   var params = req.params;
   var entity = params.entity;
   var collection = params.collection;
   if (entity) {
-    collectionDriver.get(collection, entity, function(error, objs) { //J
+    collectionDriver.get(collection, entity, function(error, objs) {
       if (error) { res.send(400, error); }
-      else { res.send(200, objs); } //K
+      else { res.send(200, objs); }
     });
   } else {
     res.send(400, {error: 'bad url', url: req.url});
   }
 });
 
-app.post('/:collection', function(req, res) { //A
+app.post('/:collection', function(req, res) {
   console.log(req.body);
   var object = req.body;
   var collection = req.params.collection;
   collectionDriver.save(collection, object, function(err,docs) {
     if (err) { res.send(400, err); }
-    else { res.status(201).send(docs); } //B
+    else { res.status(201).send(docs); }
   });
 });
 
-app.use(function (req,res) { //1
-  res.render('404', {url:req.url}); //2
+app.use(function (req,res) {
+  res.render('404', {url:req.url});
 });
 
 http.createServer(app).listen(app.get('port'), function() {
