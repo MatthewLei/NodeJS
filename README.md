@@ -22,7 +22,7 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
       * we are printing out the HTTP status code.
     * -d is for sending data (a JSON object in our case)
     * fill in name, phone, and email if you like
-5. **TO DO** You should see a new object created and sent back as a response or an error response
+5. You should see a new object created and sent back as a response or an error response with HTTP status code.
 6. Now, send the following GET request:
   * curl http://localhost:3000/customers | python -mjson.tool
     * piping into python tool is for pretty printing JSON objects
