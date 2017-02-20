@@ -15,7 +15,7 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
 2. Open second terminal tab and go to project folder with index.js file
 3. Run 'node .' (without single quote) or 'node index.js'
 4. Open third terminal tab and run:
-  * <pre><code>curl -H "Content-Type: application/json" -X POST -w "\n%{http_code} %{url_effective}\n" -d '{"name":"NameHere","phone":"PhoneNumHere","email":"EmailHere"}' http://localhost:3000/customers</pre></code>
+  * <pre><code>curl -H "Content-Type: application/json" -X POST -w "\nHTTP status code: %{http_code}\n" -d '{"name":"NameHere","phone":"PhoneNumHere","email":"EmailHere"}' http://localhost:3000/customers</pre></code>
     * -X specifies what HTTP method to use (POST in this case)
     * -w is for print-out after completed and successful operation.
       * refer to man pages
