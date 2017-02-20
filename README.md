@@ -9,6 +9,23 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
 3. "mongodb": "2.2.19",
 4. "body-parser": "*"
 
+
+## How to (MacOS)
+1. Open terminal and run mongod (install mongodb first)
+2. Open second terminal tab and go to project folder with index.js file
+3. Run 'node .' (without single quote) or 'node index.js'
+4. Open third terminal tab and run:
+  * curl -H "Content-Type: application/json" -X POST -d '{"name":"<NameHere>","phone":"<PhoneNumHere>","email":"<EmailHere>"}' http://localhost:3000/customers
+    * -X specifies what HTTP method to use (POST in this case)
+    * -d is for sending data (a JSON object in our case)
+    * fill in name, phone, and email if you like
+5. **TO DO** You should see a new object created and sent back as a response or an error response
+6. Now, send the following GET request:
+  * curl http://localhost:3000/customers | python -mjson.tool
+    * piping into python tool is for pretty printing JSON objects
+7. You should see the object you just created.
+8. That's it! That's the scope of this project. Done.
+
 ## What I learned from this project (technical detials or otherwise).
 
 These are personal notes, and may be wrong from those who are wiser
