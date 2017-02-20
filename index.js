@@ -9,6 +9,7 @@ const http = require('http'),
 
 //https://expressjs.com/en/4x/api.html#app.settings.table
 //https://expressjs.com/en/4x/api.html#app.use
+//https://expressjs.com/en/api.html#res
 var app = express();
 
 app.use(bodyParser.json()); //for req.body -> json
@@ -37,14 +38,19 @@ mongoClient.connect(url, function(err, db) {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/:collection', function(req, res) {}
+app.get('/:collection', function(req, res) {
   var params = req.params;
   console.log('req.params: ' + params);
   collectionDriver.findAll(req.params.collection, function(error, objs) {
     if (error) { res.send(400, error); }
     else {
       if (req.accepts('html')) {
-        res.render('data',{objects: objs, collection: req.params.collection});
+        if (objs == '') {
+          res.status(200).send('No objects retrieved from URL');
+        } else {
+          // res.render('data',{objects: objs, collection: req.params.collection});
+          res.status(200).send(objs);
+        }
       } else {
         res.set('Content-Type','application/json');
         res.send(200, objs);
@@ -59,7 +65,7 @@ app.get('/:collection/:entity', function(req, res) {
   var collection = params.collection;
   if (entity) {
     collectionDriver.get(collection, entity, function(error, objs) {
-      if (error) { res.send(400, error); }
+      if (error) { res.status(400).send(error); }
       else { res.send(200, objs); }
     });
   } else {
@@ -68,6 +74,7 @@ app.get('/:collection/:entity', function(req, res) {
 });
 
 app.post('/:collection', function(req, res) {
+  console.log('app.post called');
   console.log(req.body);
   var object = req.body;
   var collection = req.params.collection;

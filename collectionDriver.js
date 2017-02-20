@@ -12,24 +12,31 @@ CollectionDriver.prototype.getCollection = function(collectionName, callback) {
 };
 
 CollectionDriver.prototype.findAll = function(collectionName, callback) {
-  this.getCollection(collectionName, function(error, the_collection) { //A
-    if( error ) callback(error);
+  console.log('CollectionDriver.prototype.findAll function called');
+  console.log('    "collectionName": ' + collectionName);
+  this.getCollection(collectionName, function(error, the_collection) {
+    if ( error ) callback(error);
     else {
-      the_collection.find().toArray(function(error, results) { //B
-        if( error ) callback(error);
-        else callback(null, results);
+      the_collection.find().toArray(function(error, results) {
+        if ( error ) {
+          console.log('error with findAll');
+          callback(error);
+        } else {
+          console.log('success with findAll');
+          callback(null, results);
+        }
       });
     }
   });
 };
 
-CollectionDriver.prototype.get = function(collectionName, id, callback) { //A
+CollectionDriver.prototype.get = function(collectionName, id, callback) {
   this.getCollection(collectionName, function(error, the_collection) {
     if (error) callback(error);
     else {
-      var checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$"); //B
+      var checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
       if (!checkForHexRegExp.test(id)) callback({error: "invalid id"});
-      else the_collection.findOne({'_id':ObjectID(id)}, function(error,doc) { //C
+      else the_collection.findOne({'_id':ObjectID(id)}, function(error,doc) {
         if (error) callback(error);
         else callback(null, doc);
       });
@@ -39,11 +46,11 @@ CollectionDriver.prototype.get = function(collectionName, id, callback) { //A
 
 //save new object
 CollectionDriver.prototype.save = function(collectionName, obj, callback) {
-  this.getCollection(collectionName, function(error, the_collection) { //A
+  this.getCollection(collectionName, function(error, the_collection) {
     if( error ) callback(error)
     else {
-      obj.created_at = new Date(); //B
-      the_collection.insert(obj, function() { //C
+      obj.created_at = new Date();
+      the_collection.insert(obj, function() {
         callback(null, obj);
       });
     }
