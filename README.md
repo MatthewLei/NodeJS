@@ -15,7 +15,7 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
 2. Open second terminal tab and go to project folder with index.js file
 3. Run 'node .' (without single quote) or 'node index.js'
 4. Open third terminal tab and run:
-  * `curl -H "Content-Type: application/json" -X POST -w "\n%{http_code} %{url_effective}\n" -d '{"name":"NameHere","phone":"PhoneNumHere","email":"EmailHere"}' http://localhost:3000/customers`
+  * <pre><code>curl -H "Content-Type: application/json" -X POST -w "\nHTTP status code: %{http_code}\\n" -d '{"name":"NameHere","phone":"PhoneNumHere","email":"EmailHere"}' http://localhost:3000/customers</pre></code>
     * -X specifies what HTTP method to use (POST in this case)
     * -w is for print-out after completed and successful operation.
       * refer to man pages
@@ -24,10 +24,11 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
     * fill in name, phone, and email if you like
 5. You should see a new object created and sent back as a response or an error response with HTTP status code.
 6. Now, send the following GET request:
-  * `curl http://localhost:3000/customers | python -mjson.tool`
+  * <code>curl http://localhost:3000/customers | python -mjson.tool</code>
     * piping into python tool is for pretty printing JSON objects
 7. You should see the object you just created.
-8. That's it! That's the scope of this project. Done.
+8. If you do another POST with curl without all three properties (name, phone, email), you should see an error message (with HTTP status code)
+9. That's it! That's the scope of this project. Done.
 
 ## What I learned from this project (technical detials or otherwise).
 
