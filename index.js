@@ -46,7 +46,7 @@ app.get('/:collection', function(req, res) {
     else {
       if (req.accepts('html')) {
         if (objs == '') {
-          res.status(200).send('No objects retrieved from URL');
+          res.status(204).send('No objects retrieved from URL');
         } else {
           // res.render('data',{objects: objs, collection: req.params.collection});
           res.status(200).send(objs);
@@ -73,14 +73,36 @@ app.get('/:collection/:entity', function(req, res) {
   }
 });
 
+var validateInputs = function(object, callback) {
+  if (!object.hasOwnProperty('name')) {
+    callback('missing name');
+  }
+  if (!object.hasOwnProperty('phone')) {
+    callback('missing phone');
+  }
+  if (!object.hasOwnProperty('email')) {
+    callback('missing email');
+  }
+}
+
 app.post('/:collection', function(req, res) {
   console.log('app.post called');
   console.log(req.body);
   var object = req.body;
   var collection = req.params.collection;
-  collectionDriver.save(collection, object, function(err,docs) {
-    if (err) { res.send(400, err); }
-    else { res.status(201).send(docs); }
+
+  validateInputs(object, function(validErr) {
+    if(validErr) {
+      res.status(400).send(validErr);
+    } else {
+      collectionDriver.save(collection, object, function(err,docs) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.status(201).send(docs);
+        }
+      });
+    }
   });
 });
 
