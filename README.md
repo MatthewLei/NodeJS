@@ -27,6 +27,8 @@ These are personal notes, and may be wrong from those who are wiser
   8. http.createServer(app).listen(port, callback) to finally listen
 * Express notes
   * Express adds middleware functionality to NodeJS
+  * in Express, the "res" parameter that you define in Express app callbacks (e.g. app.get(path, callback(req,res)) is an enhanced version of Node's own response object and supports all built-in fields and methods (https://expressjs.com/en/api.html#res)
+  * in Express, the "req" parameter is an enhanced version of Node's request object and supports all built-in fields and methods (https://expressjs.com/en/api.html#req)
 * MongoDB notes (https://docs.mongodb.com/manual/reference/):
   * default port is 27017
 * Should probably use some view engine generator
