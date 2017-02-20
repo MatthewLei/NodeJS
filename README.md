@@ -7,14 +7,16 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
 1. "express": "*",
 2. "pug": "2.0.0-beta11",
 3. "mongodb": "2.2.19",
-4. "body-parser": "*"
+4. "body-parser": "*",
+5. "phone": "*"
 
 
 ## How to (MacOS)
-1. Open terminal and run mongod (install mongodb first)
-2. Open second terminal tab and go to project folder with index.js file
-3. Run 'node .' (without single quote) or 'node index.js'
-4. Open third terminal tab and run:
+1. Clone repo and run npm update to get dependency packages.
+2. Open terminal and run mongod (install mongodb first)
+3. Open second terminal tab and go to project folder with index.js file
+4. Run 'node .' (without single quote) or 'node index.js'
+5. Open third terminal tab and run:
   * <pre><code>curl -H "Content-Type: application/json" -X POST -w "\nHTTP status code: %{http_code}\\n" -d '{"name":"NameHere","phone":"PhoneNumHere","email":"EmailHere"}' http://localhost:3000/customers</pre></code>
     * -X specifies what HTTP method to use (POST in this case)
     * -w is for print-out after completed and successful operation.
@@ -22,16 +24,15 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
       * we are printing out the HTTP status code.
     * -d is for sending data (a JSON object in our case)
     * fill in name, phone, and email if you like
-5. You should see a new object created and sent back as a response or an error response with HTTP status code.
-6. Now, send the following GET request:
+6. You should see a new object created and sent back as a response or an error response with HTTP status code.
+7. Now, send the following GET request:
   * <code>curl http://localhost:3000/customers | python -mjson.tool</code>
     * piping into python tool is for pretty printing JSON objects
-7. You should see the object you just created.
-8. If you do another POST with curl without all three properties (name, phone, email), you should see an error message (with HTTP status code)
-9. That's it! That's the scope of this project. Done.
+8. You should see the object you just created.
+9. If you do another POST with curl without all three properties (name, phone, email), you should see an error message (with HTTP status code)
+10. That's it! That's the scope of this project. Done.
 
 ## What I learned from this project (technical detials or otherwise).
-
 These are personal notes, and may be wrong from those who are wiser
 
 * Writing NodeJS index.js file summary:
