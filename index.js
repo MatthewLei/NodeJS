@@ -5,7 +5,8 @@ const http = require('http'),
   MongoClient = require('mongodb').MongoClient,
   Server = require('mongodb').Server,
   CollectionDriver = require('./collectionDriver').CollectionDriver;
-  pug = require('pug'); //https://pugjs.org/api/reference.html
+  pug = require('pug'), //https://pugjs.org/api/reference.html
+  phone = require('phone'); //https://www.npmjs.com/package/phone
 
 //https://expressjs.com/en/4x/api.html#app.settings.table
 //https://expressjs.com/en/4x/api.html#app.use
@@ -73,15 +74,29 @@ app.get('/:collection/:entity', function(req, res) {
   }
 });
 
-var validateInputs = function(object, callback) {
+var validateName = function(object, callback) {
   if (!object.hasOwnProperty('name')) {
-    callback('missing name');
+    callback('missing name\n');
+  } else {
+    if (object.name.length < 2) {
+      callback('Name must contain at least 2 letters\n');
+    }
   }
+}
+
+var validatePhone = function(object, callback) {
   if (!object.hasOwnProperty('phone')) {
-    callback('missing phone');
+    callback('missing phone\n');
+  } else {
+    if (phone(object.phone).length == 0){
+      callback('Invalid phone number\n');
+    }
   }
+}
+
+var validateEmail = function(object, callback) {
   if (!object.hasOwnProperty('email')) {
-    callback('missing email');
+    callback('missing email\n');
   }
 }
 
@@ -90,20 +105,38 @@ app.post('/:collection', function(req, res) {
   console.log(req.body);
   var object = req.body;
   var collection = req.params.collection;
+  var errStr = '';
 
-  validateInputs(object, function(validErr) {
-    if(validErr) {
-      res.status(400).send(validErr);
-    } else {
-      collectionDriver.save(collection, object, function(err,docs) {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.status(201).send(docs);
-        }
-      });
+  validateName(object, function(nameErr) {
+    if (nameErr) {
+      console.log('name error');
+      errStr += nameErr;
     }
   });
+  validatePhone(object, function(phoneErr) {
+    if (phoneErr) {
+      console.log('phone error');
+      errStr += phoneErr;
+    }
+  });
+  validateEmail(object, function(emailErr) {
+    if (emailErr) {
+      console.log('email error');
+      errStr += emailErr;
+    }
+  });
+
+  if (errStr != '') {
+    res.status(400).send(errStr);
+  } else {
+    collectionDriver.save(collection, object, function(err,docs) {
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        res.status(201).send(docs);
+      }
+    });
+  }
 });
 
 app.use(function (req,res) {
