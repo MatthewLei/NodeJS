@@ -27,7 +27,8 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
   * <code>curl http://localhost:3000/customers | python -mjson.tool</code>
     * piping into python tool is for pretty printing JSON objects
 7. You should see the object you just created.
-8. That's it! That's the scope of this project. Done.
+8. If you do another POST with curl without all three properties (name, phone, email), you should see an error message (with HTTP status code)
+9. That's it! That's the scope of this project. Done.
 
 ## What I learned from this project (technical detials or otherwise).
 
