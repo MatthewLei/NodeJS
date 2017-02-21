@@ -38,7 +38,11 @@ These are personal notes, and may be wrong from those who are wiser
 
 * HTTP protocols and related:
   * The Accept header of a clients request is the type of content that they will accept, whereas the Content-Type header indicates the type of content that is part of the current request or response.
-    * for example, a client can send a POST with the Accept header of text/html and a Content-Type of application/json because it is sending a json object. The server will process the request and send back a response of Content-Type text/html because that is the type that the client accepts.  
+    * for example, a client can send a POST with the Accept header of text/html and a Content-Type of application/json because it is sending a json object. The server will process the request and send back a response of Content-Type text/html because that is the type that the client accepts.
+    * The type is written as `type/subtype` where `*/*` accepts all types (which is default if no accept type is listed.
+      * for example, `application/json` is accepting json, which is a subtype of application.
+    * a server that cannot process the requested accept type of a request should send back a `406` (not acceptable) response.
+    * common types include: application/json, application/pdf, application, xml, audio/mpeg, text/html, image/png, and more (https://en.wikipedia.org/wiki/Media_type#Common_examples).
 * Writing NodeJS index.js file summary:
   1. Initial thought of Express with NodeJS is just a bunch of app calls (use, set, get, put, etc.). Seems rather straightforward.
   2. express = require('express); var app = express();
@@ -71,7 +75,7 @@ These are personal notes, and may be wrong from those who are wiser
 * return different form of data (e.g. XML) based on the accepts HTTP header
 * implement date of birth (and validate it)
 * on POST error, return a more valid (json?) response than "missing ..."
-* use TDD to run add and run test against our API
+* use TDD to run and run test against our API
  
 ## Other Note:
 * npm update - I did not push latest node_modules (Maybe I should?)
