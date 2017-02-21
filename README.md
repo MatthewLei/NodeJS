@@ -36,6 +36,9 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
 ## What I learned from this project (technical detials or otherwise).
 These are personal notes, and may be wrong from those who are wiser
 
+* HTTP protocols and related:
+  * The Accept header of a clients request is the type of content that they will accept, whereas the Content-Type header indicates the type of content that is part of the current request or response.
+    * for example, a client can send a POST with the Accept header of text/html and a Content-Type of application/json because it is sending a json object. The server will process the request and send back a response of Content-Type text/html because that is the type that the client accepts.  
 * Writing NodeJS index.js file summary:
   1. Initial thought of Express with NodeJS is just a bunch of app calls (use, set, get, put, etc.). Seems rather straightforward.
   2. express = require('express); var app = express();
