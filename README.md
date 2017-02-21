@@ -63,7 +63,12 @@ These are personal notes, and may be wrong from those who are wiser
 
 ## Current/Future learning objectives:
 * Where and how does AngularJS come into play?
-* Learn more about CollectionDriver.
+* Learn more about Mongodb's Collection class
+* Do not accept duplicate email submissions
+* return different form of data (e.g. XML) based on the accepts HTTP header
+* implement date of birth (and validate it)
+* on POST error, return a more valid (json?) response than "missing ..."
+* use TDD to run add and run test against our API
  
 ## Other Note:
 * npm update - I did not push latest node_modules (Maybe I should?)
