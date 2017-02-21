@@ -6,7 +6,8 @@ const http = require('http'),
   Server = require('mongodb').Server,
   CollectionDriver = require('./collectionDriver').CollectionDriver;
   pug = require('pug'), //https://pugjs.org/api/reference.html
-  phone = require('phone'); //https://www.npmjs.com/package/phone
+  phone = require('phone'), //https://www.npmjs.com/package/phone
+  emailValidator = require('email-validator'); //https://www.npmjs.com/package/email-validator
 
 //https://expressjs.com/en/4x/api.html#app.settings.table
 //https://expressjs.com/en/4x/api.html#app.use
@@ -97,6 +98,10 @@ var validatePhone = function(object, callback) {
 var validateEmail = function(object, callback) {
   if (!object.hasOwnProperty('email')) {
     callback('missing email\n');
+  } else {
+    if (!emailValidator.validate(object.email)) {
+      callback('Invalid email\n');
+    }
   }
 }
 
