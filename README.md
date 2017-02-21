@@ -53,6 +53,11 @@ These are personal notes, and may be wrong from those who are wiser
   * Express in the future will NOT have Jade (which was rebranded/renamed to Pug) as its default template engine (https://github.com/expressjs/generator/issues/141).
 * MongoDB notes (https://docs.mongodb.com/manual/reference/):
   * default port is 27017
+  * with mongod running, type `mongo` in another terminal to open mongo shell:
+    * `show dbs` to show databases
+    * `use <db_name>` to use that database. Will be binded to `db`
+    * after `use`, `db.getCollectionNames()` to list all collections
+    * `db.<collection_name>.drop()` will delete collection (returns true)
 * Should probably use some view engine generator
   * I used Pug https://pugjs.org/api/getting-started.html
 
