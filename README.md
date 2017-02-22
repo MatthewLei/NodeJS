@@ -18,7 +18,7 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
 3. Open second terminal tab and go to project folder with index.js file
 4. Run 'node .' (without single quote) or 'node index.js'
 5. Open third terminal tab and run:
-  * <pre><code>curl -H "Content-Type: application/json" -X POST -w "\nHTTP status code: %{http_code}\\n" -d '{"name":"NameHere","phone":"PhoneNumHere","email":"EmailHere"}' http://localhost:3000/customers</pre></code>
+  * <pre><code>curl -H "Content-Type: application/json" -X POST -w "\nHTTP status code: %{http_code}\\n" -d '{"name":"NameHere","phone":"503 555 5555","email":"email@email.com"}' http://localhost:3000/customers</pre></code>
     * -X specifies what HTTP method to use (POST in this case)
     * -w is for print-out after completed and successful operation.
       * refer to man pages
@@ -43,6 +43,7 @@ These are personal notes, and may be wrong from those who are wiser
       * for example, `application/json` is accepting json, which is a subtype of application.
     * a server that cannot process the requested accept type of a request should send back a `406` (not acceptable) response.
     * common types include: application/json, application/pdf, application, xml, audio/mpeg, text/html, image/png, and more (https://en.wikipedia.org/wiki/Media_type#Common_examples).
+    * In Express, use `req.get('Accept')` to get Accept header.
 * Writing NodeJS index.js file summary:
   1. Initial thought of Express with NodeJS is just a bunch of app calls (use, set, get, put, etc.). Seems rather straightforward.
   2. express = require('express); var app = express();
