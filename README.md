@@ -42,7 +42,7 @@ These are personal notes, and may be wrong from those who are wiser
     * The type is written as `type/subtype` where `*/*` accepts all types (which is default if no accept type is listed.
       * for example, `application/json` is accepting json, which is a subtype of application.
     * a server that cannot process the requested accept type of a request should send back a `406` (not acceptable) response.
-    * common types include: application/json, application/pdf, application, xml, audio/mpeg, text/html, image/png, and more (https://en.wikipedia.org/wiki/Media_type#Common_examples).
+    * common types include: application/json, application/pdf, application/xml, audio/mpeg, text/html, image/png, and more (https://en.wikipedia.org/wiki/Media_type#Common_examples).
     * In Express, use `req.get('Accept')` to get Accept header.
 * Writing NodeJS index.js file summary:
   1. Initial thought of Express with NodeJS is just a bunch of app calls (use, set, get, put, etc.). Seems rather straightforward.
@@ -65,7 +65,9 @@ These are personal notes, and may be wrong from those who are wiser
     * `show dbs` to show databases
     * `use <db_name>` to use that database. Will be binded to `db`
     * after `use`, `db.getCollectionNames()` to list all collections
-    * `db.<collection_name>.drop()` will delete collection (returns true)
+    * `db.<collection_name>.drop()` will delete the specified collection
+    * `db.<collection_name>.find()` will list the first 20 documents
+    * `db.<collection_name>.delete({"_id": ObjectId("<id_here>")})` to delete by id
 * Should probably use some view engine generator
   * I used Pug https://pugjs.org/api/getting-started.html
 
