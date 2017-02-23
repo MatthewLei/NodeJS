@@ -30,7 +30,7 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
 7. Now, send the following GET request:
   * <code>curl http://localhost:3000/customers | python -mjson.tool</code>
     * piping into python tool is for pretty printing JSON objects
-  * You can add `-H "Accept: application/xml` to get response as xml
+  * You can add `-H "Accept: application/xml"` to get response as xml
 8. You should see the object you just created.
 9. If you do another POST with curl without all three properties (name, phone, email), you should see an error message (with HTTP status code)
 10. That's it! That's the scope of this project. Done.
