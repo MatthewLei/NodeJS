@@ -12,17 +12,13 @@ CollectionDriver.prototype.getCollection = function(collectionName, callback) {
 };
 
 CollectionDriver.prototype.findAll = function(collectionName, callback) {
-  console.log('CollectionDriver.prototype.findAll function called');
-  console.log('    "collectionName": ' + collectionName);
   this.getCollection(collectionName, function(error, the_collection) {
     if ( error ) callback(error);
     else {
       the_collection.find().toArray(function(error, results) {
         if ( error ) {
-          console.log('error with findAll');
           callback(error);
         } else {
-          console.log('success with findAll');
           callback(null, results);
         }
       });

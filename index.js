@@ -59,13 +59,12 @@ app.get('/:collection', function(req, res) {
         res.status(200).send(objs);
         // res.render('data',{objects: objs, collection: req.params.collection});
       } else if (req.accepts('application/xml')) {
-        console.log('accepts xml');
         objs.forEach(function(item) {
-          //some wonky bug with _id values containing invalid xml characters
+          //wonky _id invalid char bug
           item._id = item._id.toString();
         });
+        res.set('Content-Type', 'application/xml');
         var xmlObjs = xmlParser.parse('Documents', objs);
-        console.log(util.inspect(xmlObjs));
         res.status(200).send(xmlObjs + '\n');
       } else {
         res.status(406).send('Not acceptable Accept type');
