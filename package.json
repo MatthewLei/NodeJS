@@ -8,6 +8,7 @@
 		"mongodb": "2.2.19",
 		"body-parser": "*",
 		"phone": "*",
-		"email-validator": "*"
+		"email-validator": "*",
+		"js2xmlparser": "*"
 	}
 }

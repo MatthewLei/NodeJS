@@ -1,4 +1,5 @@
 const http = require('http'),
+  util = require('util'),
   express = require('express'),
   path = require('path'),
   bodyParser = require('body-parser'),
@@ -7,11 +8,13 @@ const http = require('http'),
   CollectionDriver = require('./collectionDriver').CollectionDriver;
   pug = require('pug'), //https://pugjs.org/api/reference.html
   phone = require('phone'), //https://www.npmjs.com/package/phone
-  emailValidator = require('email-validator'); //https://www.npmjs.com/package/email-validator
+  emailValidator = require('email-validator'), //https://www.npmjs.com/package/email-validator
+  xmlParser = require('js2xmlparser'); //https://www.npmjs.com/package/js2xmlparser
 
 //https://expressjs.com/en/4x/api.html#app.settings.table
 //https://expressjs.com/en/4x/api.html#app.use
 //https://expressjs.com/en/api.html#res
+//https://expressjs.com/en/api.html#req
 var app = express();
 
 app.use(bodyParser.json()); //for req.body -> json
@@ -43,19 +46,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/:collection', function(req, res) {
   var params = req.params;
   console.log('req.params: ' + params);
+
   collectionDriver.findAll(req.params.collection, function(error, objs) {
-    if (error) { res.send(400, error); }
-    else {
-      if (req.accepts('html')) {
-        if (objs == '') {
-          res.status(204).send('No objects retrieved from URL');
-        } else {
-          // res.render('data',{objects: objs, collection: req.params.collection});
-          res.status(200).send(objs);
-        }
-      } else {
+    if (error) {
+      res.status(400).send(error);
+    } else if (objs == '') {
+      res.status(204).send('No objects obtained');
+    } else {
+      console.log('req.get("Accept"): ' + req.get('Accept'));
+      if (req.accepts('*/*') || req.accepts('application/json')) {
         res.set('Content-Type','application/json');
-        res.send(200, objs);
+        res.status(200).send(objs);
+        // res.render('data',{objects: objs, collection: req.params.collection});
+      } else if (req.accepts('application/xml')) {
+        console.log('accepts xml');
+        objs.forEach(function(item) {
+          //some wonky bug with _id values containing invalid xml characters
+          item._id = item._id.toString();
+        });
+        var xmlObjs = xmlParser.parse('Documents', objs);
+        console.log(util.inspect(xmlObjs));
+        res.status(200).send(xmlObjs + '\n');
+      } else {
+        res.status(406).send('Not acceptable Accept type');
       }
     }
   });
