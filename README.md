@@ -77,7 +77,6 @@ These are personal notes, and may be wrong from those who are wiser
 * Where and how does AngularJS come into play?
 * Learn more about Mongodb's Collection class
 * Do not accept duplicate email submissions
-* return different form of data (e.g. XML) based on the accepts HTTP header
 * implement date of birth (and validate it)
 * on POST error, return a more valid (json?) response than "missing ..."
 * use TDD to run and run test against our API
