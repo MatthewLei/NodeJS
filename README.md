@@ -32,7 +32,7 @@ simple project to learn the MEAN stack (MongoDB, Express, AngularJS, NodeJS)
     * piping into python tool is for pretty printing JSON objects
   * You can add `-H "Accept: application/xml"` to get response as xml
 8. You should see the object you just created.
-9. If you do another POST with curl without all three properties (name, phone, email), you should see an error message (with HTTP status code)
+9. If you do another POST with curl without missing or invalid properties (name, phone, email), you should see an error message (with HTTP status code)
 10. That's it! That's the scope of this project. Done.
 
 ## What I learned from this project (technical detials or otherwise).
@@ -46,6 +46,7 @@ These are personal notes, and may be wrong from those who are wiser
     * a server that cannot process the requested accept type of a request should send back a `406` (not acceptable) response.
     * common types include: application/json, application/pdf, application/xml, audio/mpeg, text/html, image/png, and more (https://en.wikipedia.org/wiki/Media_type#Common_examples).
     * In Express, use `req.get('Accept')` to get Accept header.
+  * HTTP header keys are case-insensitive (https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2)
 * Writing NodeJS index.js file summary:
   1. Initial thought of Express with NodeJS is just a bunch of app calls (use, set, get, put, etc.). Seems rather straightforward.
   2. express = require('express); var app = express();
@@ -88,5 +89,19 @@ These are personal notes, and may be wrong from those who are wiser
   * node . (node followed by period)
     * searches current directory for index.js to run
 
-## Special Thanks Michael Katz for the great tutorial
+## Special Thanks to Michael Katz for his tutorial. Great starting point.
 https://www.raywenderlich.com/61078/write-simple-node-jsmongodb-web-service-ios-app
+
+## Resources
+ * Express:
+   * https://expressjs.com/en/4x/api.html#app.settings.table
+   * https://expressjs.com/en/4x/api.html#app.use
+   * https://expressjs.com/en/4x/api.html#res
+   * https://expressjs.com/en/4x/api.html#req
+ * NodeJS:
+   * https://nodejs.org/api/http.html#http_http
+ * Dependencies:
+   * https://pugjs.org/api/reference.html
+   * https://www.npmjs.com/package/phone
+   * https://www.npmjs.com/package/email-validator
+   * https://www.npmjs.com/package/js2xmlparser
