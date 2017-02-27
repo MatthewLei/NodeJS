@@ -26,6 +26,22 @@ CollectionDriver.prototype.findAll = function(collectionName, callback) {
   });
 };
 
+CollectionDriver.prototype.findByQuery = function(collectionName, query, callback) {
+  this.getCollection(collectionName, function (error, collection) {
+    if (error) {
+      callback(error);
+    } else {
+      collection.find(query).toArray(function(error, results) {
+        if (error) {
+          callback(error);
+        } else {
+          callback(null, results);
+        }
+      });
+    }
+  });
+}
+
 CollectionDriver.prototype.get = function(collectionName, id, callback) {
   this.getCollection(collectionName, function(error, the_collection) {
     if (error) callback(error);
