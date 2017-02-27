@@ -11,10 +11,6 @@ const http = require('http'),
   emailValidator = require('email-validator'), //https://www.npmjs.com/package/email-validator
   xmlParser = require('js2xmlparser'); //https://www.npmjs.com/package/js2xmlparser
 
-//https://expressjs.com/en/4x/api.html#app.settings.table
-//https://expressjs.com/en/4x/api.html#app.use
-//https://expressjs.com/en/api.html#res
-//https://expressjs.com/en/api.html#req
 var app = express();
 
 app.use(bodyParser.json()); //for req.body -> json
@@ -103,6 +99,8 @@ var validatePhone = function(object, callback) {
   } else {
     if (phone(object.phone).length == 0){
       callback('Invalid phone number\n');
+    } else {
+      callback(null);
     }
   }
 }
@@ -113,12 +111,15 @@ var validateEmail = function(object, callback) {
   } else {
     if (!emailValidator.validate(object.email)) {
       callback('Invalid email\n');
+    } else {
+      callback(null);
     }
   }
 }
 
+// FIX: write function in async way instead of this.
 app.post('/:collection', function(req, res) {
-  console.log('app.post called');
+  console.log('POST request');
   console.log(req.body);
   var object = req.body;
   var collection = req.params.collection;
@@ -126,34 +127,43 @@ app.post('/:collection', function(req, res) {
 
   validateName(object, function(nameErr) {
     if (nameErr) {
-      console.log('name error');
       errStr += nameErr;
     }
   });
   validatePhone(object, function(phoneErr) {
     if (phoneErr) {
-      console.log('phone error');
       errStr += phoneErr;
     }
   });
   validateEmail(object, function(emailErr) {
     if (emailErr) {
-      console.log('email error');
       errStr += emailErr;
     }
   });
 
-  if (errStr != '') {
-    res.status(400).send(errStr);
-  } else {
-    collectionDriver.save(collection, object, function(err,docs) {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(201).send(docs);
+  // check if email already exists
+  emailQuery = {email: {$eq: object.email}};
+  var doc = collectionDriver.findByQuery(collection, emailQuery, function(error, objs) {
+    if (error) {
+      errStr += error;
+    } else {
+      if (objs.length > 0) {
+        errStr += 'email already exists\n';
       }
-    });
-  }
+    }
+
+    if (errStr != '') {
+      res.status(400).send(errStr);
+    } else {
+      collectionDriver.save(collection, object, function(err,docs) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.status(201).send(docs);
+        }
+      });
+    }
+  });
 });
 
 app.use(function (req,res) {
